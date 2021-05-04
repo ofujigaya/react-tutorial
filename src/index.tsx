@@ -6,23 +6,12 @@ type SquareProps = {
   value: string
   onClick: () => void
 }
-type SquareState = {
-  value: string
-}
-class Square extends React.Component<SquareProps, SquareState> {
-  constructor(props: SquareProps) {
-    super(props)
-    this.state = {
-      value: '',
-    }
-  }
-  render() {
-    return (
-      <button className="square" onClick={() => this.props.onClick()}>
-        {this.props.value}
-      </button>
-    )
-  }
+function Square(props: SquareProps) {
+  return (
+    <button className="square" onClick={props.onClick}>
+      {props.value}
+    </button>
+  )
 }
 
 type BoardProps = {
@@ -47,7 +36,7 @@ class Board extends React.Component<BoardProps, BoardState> {
     this.setState({
       squares: squares,
     })
-    console.log(this.state)
+    console.log(this.state) // open and check the DevTools
   }
 
   renderSquare(i: number) {

@@ -3,30 +3,55 @@ import ReactDOM from 'react-dom'
 import './index.css'
 
 type SquareProps = {
-  value: number
+  value: string
+  onClick: () => void
 }
 type SquareState = {
-  value: string | null
+  value: string
 }
 class Square extends React.Component<SquareProps, SquareState> {
   constructor(props: SquareProps) {
     super(props)
     this.state = {
-      value: null,
+      value: '',
     }
   }
   render() {
     return (
-      <button className="square" onClick={() => this.setState({ value: 'X' })}>
-        {this.state.value}
+      <button className="square" onClick={() => this.props.onClick()}>
+        {this.props.value}
       </button>
     )
   }
 }
 
-class Board extends React.Component {
+type BoardProps = {
+  squares: string[]
+}
+type BoardState = {
+  squares: string[]
+}
+const squares = Array<string>(9).fill('')
+class Board extends React.Component<BoardProps, BoardState> {
+  constructor(props: BoardProps) {
+    super(props)
+    this.state = {
+      squares: squares,
+    }
+  }
+
+  handleClick(i: number) {
+    console.log(i) // open and check the DevTools
+    const squares: Array<string> = this.state.squares.slice()
+    squares[i] = 'X'
+    this.setState({
+      squares: squares,
+    })
+    console.log(this.state)
+  }
+
   renderSquare(i: number) {
-    return <Square value={i} />
+    return <Square value={this.state.squares[i]} onClick={() => this.handleClick(i)} />
   }
 
   render() {
@@ -60,7 +85,7 @@ class Game extends React.Component {
     return (
       <div className="game">
         <div className="game-board">
-          <Board />
+          <Board squares={squares} />
         </div>
         <div className="game-info">
           <div>{/* status */}</div>

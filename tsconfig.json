@@ -2,11 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "module": "esnext",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": false,
     "jsx": "react-jsx",
     "removeComments": true,
@@ -14,7 +10,7 @@
     "isolatedModules": true,
     "strict": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedParameters": false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
@@ -26,14 +22,6 @@
     "baseUrl": ".",
     "allowSyntheticDefaultImports": true
   },
-  "include": [
-    "src",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules",
-    ".webpack",
-    ".vscode"
-  ]
+  "include": ["src", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", ".webpack", ".vscode"]
 }

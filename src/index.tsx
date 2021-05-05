@@ -2,7 +2,11 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 
-function Square(props) {
+interface SquareProps {
+  value: string
+  onClick: () => void
+}
+function Square(props: SquareProps) {
   return (
     <button className="square" onClick={props.onClick}>
       {props.value}
@@ -10,8 +14,12 @@ function Square(props) {
   )
 }
 
-class Board extends React.Component {
-  renderSquare(i) {
+interface BoardProps {
+  squares: SquareType
+  onClick: (i: number) => void
+}
+class Board extends React.Component<BoardProps> {
+  renderSquare(i: number) {
     return <Square value={this.props.squares[i]} onClick={() => this.props.onClick(i)} />
   }
 
@@ -38,17 +46,23 @@ class Board extends React.Component {
   }
 }
 
-class Game extends React.Component {
-  constructor(props) {
+type SquareType = Array<'X' | 'O'>
+interface GameState {
+  history: { squares: SquareType }[]
+  stepNumber: number
+  xIsNext: boolean
+}
+class Game extends React.Component<{}, GameState> {
+  constructor(props: {}) {
     super(props)
     this.state = {
-      history: [{ squares: Array(9).fill(null) }],
+      history: [{ squares: Array(9).fill('') }],
       stepNumber: 0,
       xIsNext: true,
     }
   }
 
-  handleClick(i) {
+  handleClick(i: number) {
     const history = this.state.history.slice(0, this.state.stepNumber + 1)
     const current = history[history.length - 1]
     const squares = current.squares.slice()
@@ -63,7 +77,7 @@ class Game extends React.Component {
     })
   }
 
-  jumpTo(step) {
+  jumpTo(step: number) {
     this.setState({
       stepNumber: step,
       xIsNext: step % 2 === 0,
@@ -74,7 +88,7 @@ class Game extends React.Component {
     const history = this.state.history
     const current = history[this.state.stepNumber]
     const winner = calculateWinner(current.squares)
-    const moves = history.map((step, move) => {
+    const moves = history.map((_step, move) => {
       const desc = move ? 'Go to move #' + move : 'Go to game start'
       return (
         <li key={move}>
@@ -105,7 +119,7 @@ class Game extends React.Component {
 // ========================================
 ReactDOM.render(<Game />, document.getElementById('root'))
 
-function calculateWinner(squares) {
+function calculateWinner(squares: SquareType) {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -122,5 +136,5 @@ function calculateWinner(squares) {
       return squares[a]
     }
   }
-  return null
+  return ''
 }

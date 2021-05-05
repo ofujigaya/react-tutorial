@@ -1,9 +1,9 @@
 import Square from './Square'
 import { BoardProps } from '../types/interface'
 
-export default function (props: BoardProps) {
+const Board: React.FC<BoardProps> = ({ squares, onClick }) => {
   const renderSquare = (i: number) => {
-    return <Square value={props.squares[i]} onClick={() => props.onClick(i)} />
+    return <Square value={squares[i]} onClick={() => onClick(i)} />
   }
 
   return (
@@ -26,3 +26,5 @@ export default function (props: BoardProps) {
     </div>
   )
 }
+
+export default Board

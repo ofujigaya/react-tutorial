@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 
-type SquareProps = {
+interface SquareProps {
   value: string
   onClick: () => void
 }
@@ -14,8 +14,9 @@ function Square(props: SquareProps) {
   )
 }
 
-type BoardProps = {
-  squares: string[]
+type SquareType = ('X' | 'O')[]
+interface BoardProps {
+  squares: SquareType
   onClick: (i: number) => void
 }
 class Board extends React.Component<BoardProps> {
@@ -46,8 +47,8 @@ class Board extends React.Component<BoardProps> {
   }
 }
 
-type GameState = {
-  history: { squares: string[] }[]
+interface GameState {
+  history: { squares: SquareType }[]
   stepNumber: number
   xIsNext: boolean
 }
@@ -92,7 +93,7 @@ class Game extends React.Component<{}, GameState> {
     const current = history[this.state.stepNumber]
     const winner = calculateWinner(current.squares)
 
-    const moves = history.map((step, move) => {
+    const moves = history.map((_step, move) => {
       const desc = move ? 'Go to move #' + move : 'Go to game start'
       return (
         <li key={move}>

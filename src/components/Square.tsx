@@ -1,20 +1,14 @@
-import { useState } from 'react'
+import { SquareType } from '../types'
 
 interface SquareProps {
-  value: string | number
+  value: SquareType
+  onClick: () => void
 }
 
-export default function Square(_props: SquareProps) {
-  const [value, setValue] = useState<string | number>('')
-
+export default function Square(props: SquareProps) {
   return (
-    <button
-      className="square"
-      onClick={() => {
-        setValue('X')
-      }}
-    >
-      {value}
+    <button className="square" onClick={props.onClick}>
+      {props.value}
     </button>
   )
 }

@@ -1,9 +1,12 @@
 export type SquareType = Array<'X' | 'O'>
-export interface GameState {
-  history: { squares: SquareType }[]
-  stepNumber: number
-  xIsNext: boolean
-}
+
+export type HistoryType = { squares: SquareType }[]
+
+// export interface GameState {
+//   history: { squares: SquareType }[]
+//   stepNumber: number
+//   xIsNext: boolean
+// }
 
 export interface BoardProps {
   squares: SquareType

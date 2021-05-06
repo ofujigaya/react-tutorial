@@ -1,3 +1,20 @@
-export default function Square() {
-  return <button className="square">{/* TODO */}</button>
+import { useState } from 'react'
+
+interface SquareProps {
+  value: string | number
+}
+
+export default function Square(_props: SquareProps) {
+  const [value, setValue] = useState<string | number>('')
+
+  return (
+    <button
+      className="square"
+      onClick={() => {
+        setValue('X')
+      }}
+    >
+      {value}
+    </button>
+  )
 }

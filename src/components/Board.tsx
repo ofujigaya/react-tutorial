@@ -10,7 +10,7 @@ export default function Board() {
         return (
           <div className="board-row" key={i}>
             {[...Array(3)].map((_, j) => {
-              return <Square key={j} />
+              return <Square value={''} key={j} />
             })}
           </div>
         )

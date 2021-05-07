@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import Board from './Board'
-import { calculateWinner } from '../logic'
-import { SquareType } from '../types'
-
-type HistoryType = { squares: SquareType[] }[]
+import Moves from './Moves'
+import { calculateWinner, getStatus } from '../logic'
+import { HistoryType } from '../types'
 
 export default function Game() {
   const [histories, setHistories] = useState<HistoryType>([{ squares: Array(9).fill(null) }])
@@ -30,21 +29,7 @@ export default function Game() {
 
   const current = histories[stepNumber]
   const winner = calculateWinner(current.squares)
-  let status
-  if (winner) {
-    status = 'Winner: ' + winner
-  } else {
-    status = 'Next player: ' + (xIsNext ? 'X' : 'O')
-  }
-
-  const moves = histories.map((_step, move) => {
-    const desc = move ? 'Go to move #' + move : 'Go to game start'
-    return (
-      <li key={move}>
-        <button onClick={() => jumpTo(move)}>{desc}</button>
-      </li>
-    )
-  })
+  const status = getStatus(winner, xIsNext)
 
   return (
     <div className="game">
@@ -53,7 +38,7 @@ export default function Game() {
       </div>
       <div className="game-info">
         <div>{status}</div>
-        <ol>{moves}</ol>
+        <Moves histories={histories} jumpTo={jumpTo} />
       </div>
     </div>
   )

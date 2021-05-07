@@ -19,3 +19,12 @@ export const calculateWinner = (squares: SquareType[]) => {
   }
   return null
 }
+
+export const getStatus = (winner: SquareType, xIsNext: boolean) => {
+  if (winner) {
+    return `Winner: ${winner}`
+  } else {
+    const nextPlayer = xIsNext ? 'X' : 'O'
+    return `Next player: ${nextPlayer}`
+  }
+}
